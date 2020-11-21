@@ -138,28 +138,20 @@ F 3 "" H 7900 4400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 NoConn ~ 7900 4000
-Text GLabel 5500 3800 0    50   Input ~ 0
+Text GLabel 5500 4000 0    50   Input ~ 0
 TX
 Text GLabel 5500 4400 0    50   Input ~ 0
 RTS
 Text GLabel 5500 4200 0    50   Input ~ 0
 DTS
 Wire Wire Line
-	7100 3800 7900 3800
-Wire Wire Line
 	7500 4400 7500 3900
 Wire Wire Line
 	7500 3900 7900 3900
-Wire Wire Line
-	7100 4200 7900 4200
-NoConn ~ 7100 4000
-NoConn ~ 5500 4000
+NoConn ~ 7100 3800
+NoConn ~ 5500 3800
 Text GLabel 3200 3650 0    50   Input ~ 0
 RTS
-Text GLabel 3200 3850 0    50   Input ~ 0
-DTS
-Text GLabel 3200 3750 0    50   Input ~ 0
-TX
 Wire Wire Line
 	7000 2400 7500 2400
 Wire Wire Line
@@ -191,17 +183,6 @@ NoConn ~ 3550 4600
 NoConn ~ 3650 4600
 NoConn ~ 3750 4600
 NoConn ~ 3850 4600
-$Comp
-L power:GND #PWR03
-U 1 1 5FBA4FD3
-P 3450 4600
-F 0 "#PWR03" H 3450 4350 50  0001 C CNN
-F 1 "GND" H 3600 4550 50  0000 C CNN
-F 2 "" H 3450 4600 50  0001 C CNN
-F 3 "" H 3450 4600 50  0001 C CNN
-	1    3450 4600
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR04
 U 1 1 5FBA54D6
@@ -285,7 +266,7 @@ U 1 1 5FBA0BED
 P 3200 2950
 F 0 "U1" H 3625 3015 50  0000 C CNN
 F 1 "Arduino_Mini" H 3625 2924 50  0000 C CNN
-F 2 "MyLibrary:Arduino_Mini" H 3200 2950 50  0001 C CNN
+F 2 "Package_DIP:DIP-24_W15.24mm_Socket" H 3200 2950 50  0001 C CNN
 F 3 "" H 3200 2950 50  0001 C CNN
 	1    3200 2950
 	1    0    0    -1  
@@ -304,6 +285,19 @@ F 4 "C77848" H 3550 2400 50  0001 C CNN "LCSC"
 $EndComp
 Wire Wire Line
 	2950 2100 3550 2100
+Text GLabel 3200 3750 0    50   Input ~ 0
+TX
+Text GLabel 3200 3850 0    50   Input ~ 0
+DTS
+Wire Wire Line
+	7100 4200 7900 4200
 Wire Wire Line
 	7500 4400 7100 4400
+Wire Wire Line
+	7900 3800 7350 3800
+Wire Wire Line
+	7350 3800 7350 4000
+Wire Wire Line
+	7350 4000 7100 4000
+NoConn ~ 3450 4600
 $EndSCHEMATC
