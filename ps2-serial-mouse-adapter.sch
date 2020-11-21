@@ -1,0 +1,313 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "PS/2 to Serial Mouse Adapter"
+Date "2020-11-21"
+Rev "0.5"
+Comp "Necroware"
+Comment1 "by Scorp"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Interface_UART:MAX232 U2
+U 1 1 5FBA2EB0
+P 6300 3700
+F 0 "U2" H 6300 4200 50  0000 C CNN
+F 1 "MAX232" H 6300 4050 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 6350 2650 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 6300 3800 50  0001 C CNN
+	1    6300 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C1
+U 1 1 5FBAA608
+P 5500 2950
+F 0 "C1" H 5300 3000 50  0000 L CNN
+F 1 "1u" H 5300 2900 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm" H 5538 2800 50  0001 C CNN
+F 3 "~" H 5500 2950 50  0001 C CNN
+	1    5500 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C2
+U 1 1 5FBAACF8
+P 6850 2400
+F 0 "C2" H 6732 2354 50  0000 R CNN
+F 1 "1u" H 6732 2445 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm" H 6888 2250 50  0001 C CNN
+F 3 "~" H 6850 2400 50  0001 C CNN
+	1    6850 2400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP C5
+U 1 1 5FBAAF60
+P 7250 3600
+F 0 "C5" V 7200 3500 50  0000 C CNN
+F 1 "1u" V 7300 3500 50  0000 C CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm" H 7288 3450 50  0001 C CNN
+F 3 "~" H 7250 3600 50  0001 C CNN
+	1    7250 3600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:CP C3
+U 1 1 5FBAB5FF
+P 7100 2950
+F 0 "C3" H 7218 2996 50  0000 L CNN
+F 1 "1u" H 7218 2905 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm" H 7138 2800 50  0001 C CNN
+F 3 "~" H 7100 2950 50  0001 C CNN
+	1    7100 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C4
+U 1 1 5FBAB312
+P 7250 3300
+F 0 "C4" V 7300 3200 50  0000 C CNN
+F 1 "1u" V 7200 3200 50  0000 C CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm" H 7288 3150 50  0001 C CNN
+F 3 "~" H 7250 3300 50  0001 C CNN
+	1    7250 3300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 5FBB829E
+P 7500 3600
+F 0 "#PWR06" H 7500 3350 50  0001 C CNN
+F 1 "GND" H 7650 3550 50  0000 C CNN
+F 2 "" H 7500 3600 50  0001 C CNN
+F 3 "" H 7500 3600 50  0001 C CNN
+	1    7500 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7400 3300 7500 3300
+Wire Wire Line
+	7400 3600 7500 3600
+Connection ~ 7500 3600
+Wire Wire Line
+	7500 3300 7500 3600
+Wire Wire Line
+	7500 2400 7500 3300
+Connection ~ 7500 3300
+$Comp
+L power:GND #PWR05
+U 1 1 5FBBD5F1
+P 6300 4900
+F 0 "#PWR05" H 6300 4650 50  0001 C CNN
+F 1 "GND" H 6450 4850 50  0000 C CNN
+F 2 "" H 6300 4900 50  0001 C CNN
+F 3 "" H 6300 4900 50  0001 C CNN
+	1    6300 4900
+	1    0    0    -1  
+$EndComp
+NoConn ~ 7900 3600
+NoConn ~ 7900 3700
+NoConn ~ 7900 4100
+NoConn ~ 7900 4300
+$Comp
+L Connector:DB9_Female J4
+U 1 1 5FBA566F
+P 8200 4000
+F 0 "J4" H 8380 4046 50  0000 L CNN
+F 1 "DB9_Female" H 8380 3955 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm" H 8200 4000 50  0001 C CNN
+F 3 " ~" H 8200 4000 50  0001 C CNN
+	1    8200 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 5FB93712
+P 7900 4400
+F 0 "#PWR07" H 7900 4150 50  0001 C CNN
+F 1 "GND" H 7900 4250 50  0000 C CNN
+F 2 "" H 7900 4400 50  0001 C CNN
+F 3 "" H 7900 4400 50  0001 C CNN
+	1    7900 4400
+	1    0    0    -1  
+$EndComp
+NoConn ~ 7900 4000
+Text GLabel 5500 3800 0    50   Input ~ 0
+TX
+Text GLabel 5500 4200 0    50   Input ~ 0
+RTS
+Text GLabel 5500 4400 0    50   Input ~ 0
+DTS
+Wire Wire Line
+	7100 3800 7900 3800
+Wire Wire Line
+	7100 4200 7500 4200
+Wire Wire Line
+	7500 4200 7500 3900
+Wire Wire Line
+	7500 3900 7900 3900
+Wire Wire Line
+	7100 4400 7700 4400
+Wire Wire Line
+	7700 4400 7700 4200
+Wire Wire Line
+	7700 4200 7900 4200
+NoConn ~ 7100 4000
+NoConn ~ 5500 4000
+Text GLabel 3200 3650 0    50   Input ~ 0
+RTS
+Text GLabel 3200 3850 0    50   Input ~ 0
+DTS
+Text GLabel 3200 3750 0    50   Input ~ 0
+TX
+Wire Wire Line
+	7000 2400 7500 2400
+Wire Wire Line
+	6700 2400 6300 2400
+Wire Wire Line
+	6300 2400 6300 2500
+Wire Wire Line
+	4050 3150 4150 3150
+Wire Wire Line
+	4150 3150 4150 2400
+Wire Wire Line
+	4150 2400 6300 2400
+Connection ~ 6300 2400
+NoConn ~ 3200 3150
+NoConn ~ 3200 3250
+NoConn ~ 3200 3350
+NoConn ~ 4050 3350
+NoConn ~ 4050 3550
+NoConn ~ 4050 3650
+NoConn ~ 4050 3750
+NoConn ~ 4050 3850
+NoConn ~ 3200 3950
+NoConn ~ 4050 3950
+NoConn ~ 4050 4150
+NoConn ~ 4050 4250
+Text GLabel 4050 3450 2    50   Input ~ 0
+VCC
+NoConn ~ 3550 4600
+NoConn ~ 3650 4600
+NoConn ~ 3750 4600
+NoConn ~ 3850 4600
+$Comp
+L power:GND #PWR03
+U 1 1 5FBA4FD3
+P 3450 4600
+F 0 "#PWR03" H 3450 4350 50  0001 C CNN
+F 1 "GND" H 3600 4550 50  0000 C CNN
+F 2 "" H 3450 4600 50  0001 C CNN
+F 3 "" H 3450 4600 50  0001 C CNN
+	1    3450 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5FBA54D6
+P 4200 3250
+F 0 "#PWR04" H 4200 3000 50  0001 C CNN
+F 1 "GND" H 4350 3200 50  0000 C CNN
+F 2 "" H 4200 3250 50  0001 C CNN
+F 3 "" H 4200 3250 50  0001 C CNN
+	1    4200 3250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4050 3250 4200 3250
+$Comp
+L power:GND #PWR02
+U 1 1 5FBA612D
+P 2850 3450
+F 0 "#PWR02" H 2850 3200 50  0001 C CNN
+F 1 "GND" H 2850 3300 50  0000 C CNN
+F 2 "" H 2850 3450 50  0001 C CNN
+F 3 "" H 2850 3450 50  0001 C CNN
+	1    2850 3450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 3450 2850 3450
+NoConn ~ 3850 2500
+NoConn ~ 3850 2300
+$Comp
+L power:GND #PWR01
+U 1 1 5FBABFE6
+P 2950 2400
+F 0 "#PWR01" H 2950 2150 50  0001 C CNN
+F 1 "GND" H 2950 2250 50  0000 C CNN
+F 2 "" H 2950 2400 50  0001 C CNN
+F 3 "" H 2950 2400 50  0001 C CNN
+	1    2950 2400
+	1    0    0    -1  
+$EndComp
+Text GLabel 3250 2500 0    50   Input ~ 0
+CLK
+Text GLabel 3250 2300 0    50   Input ~ 0
+DATA
+Wire Wire Line
+	3850 2400 4150 2400
+Connection ~ 4150 2400
+Text GLabel 3200 3550 0    50   Input ~ 0
+CLK
+Text GLabel 4050 4050 2    50   Input ~ 0
+DATA
+Connection ~ 2950 2400
+$Comp
+L Connector:USB_B_Mini PWR1
+U 1 1 5FBBA6CF
+P 2950 1700
+F 0 "PWR1" H 3007 2167 50  0000 C CNN
+F 1 "USB_B_Mini" H 3007 2076 50  0000 C CNN
+F 2 "MyLibrary:USB_Mini-B-Jing_Extension_LSCS_C46398" H 3100 1650 50  0001 C CNN
+F 3 "~" H 3100 1650 50  0001 C CNN
+	1    2950 1700
+	1    0    0    -1  
+$EndComp
+Text GLabel 3250 1500 2    50   Input ~ 0
+VCC
+NoConn ~ 3250 1700
+NoConn ~ 3250 1800
+NoConn ~ 3250 1900
+Wire Wire Line
+	2850 2100 2950 2100
+Connection ~ 2950 2100
+Wire Wire Line
+	2950 2100 2950 2400
+Wire Wire Line
+	2950 2400 3250 2400
+NoConn ~ 3200 4050
+NoConn ~ 3200 4150
+NoConn ~ 3200 4250
+$Comp
+L MyLib:Arduino_Mini U1
+U 1 1 5FBA0BED
+P 3200 2950
+F 0 "U1" H 3625 3015 50  0000 C CNN
+F 1 "Arduino_Mini" H 3625 2924 50  0000 C CNN
+F 2 "MyLibrary:Arduino_Mini" H 3200 2950 50  0001 C CNN
+F 3 "" H 3200 2950 50  0001 C CNN
+	1    3200 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L MyLib:Mini-DIN-6_shielded MOUSE1
+U 1 1 5FBA6BF7
+P 3550 2400
+F 0 "MOUSE1" H 3550 2767 50  0000 C CNN
+F 1 "Mini-DIN-6" H 3550 2676 50  0000 C CNN
+F 2 "MyLibrary:Mini_DIN_6_LCSC_C77848" H 3550 2400 50  0001 C CNN
+F 3 "http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf" H 3550 2400 50  0001 C CNN
+F 4 "C77848" H 3550 2400 50  0001 C CNN "LCSC"
+	1    3550 2400
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2950 2100 3550 2100
+$EndSCHEMATC
