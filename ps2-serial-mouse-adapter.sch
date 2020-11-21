@@ -116,10 +116,10 @@ NoConn ~ 7900 3700
 NoConn ~ 7900 4100
 NoConn ~ 7900 4300
 $Comp
-L Connector:DB9_Female J4
+L Connector:DB9_Female RS232
 U 1 1 5FBA566F
 P 8200 4000
-F 0 "J4" H 8380 4046 50  0000 L CNN
+F 0 "RS232" H 8380 4046 50  0000 L CNN
 F 1 "DB9_Female" H 8380 3955 50  0000 L CNN
 F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm" H 8200 4000 50  0001 C CNN
 F 3 " ~" H 8200 4000 50  0001 C CNN
@@ -140,24 +140,18 @@ $EndComp
 NoConn ~ 7900 4000
 Text GLabel 5500 3800 0    50   Input ~ 0
 TX
-Text GLabel 5500 4200 0    50   Input ~ 0
-RTS
 Text GLabel 5500 4400 0    50   Input ~ 0
+RTS
+Text GLabel 5500 4200 0    50   Input ~ 0
 DTS
 Wire Wire Line
 	7100 3800 7900 3800
 Wire Wire Line
-	7100 4200 7500 4200
-Wire Wire Line
-	7500 4200 7500 3900
+	7500 4400 7500 3900
 Wire Wire Line
 	7500 3900 7900 3900
 Wire Wire Line
-	7100 4400 7700 4400
-Wire Wire Line
-	7700 4400 7700 4200
-Wire Wire Line
-	7700 4200 7900 4200
+	7100 4200 7900 4200
 NoConn ~ 7100 4000
 NoConn ~ 5500 4000
 Text GLabel 3200 3650 0    50   Input ~ 0
@@ -183,7 +177,7 @@ NoConn ~ 3200 3150
 NoConn ~ 3200 3250
 NoConn ~ 3200 3350
 NoConn ~ 4050 3350
-NoConn ~ 4050 3550
+NoConn ~ 4050 4050
 NoConn ~ 4050 3650
 NoConn ~ 4050 3750
 NoConn ~ 4050 3850
@@ -256,7 +250,7 @@ Wire Wire Line
 Connection ~ 4150 2400
 Text GLabel 3200 3550 0    50   Input ~ 0
 CLK
-Text GLabel 4050 4050 2    50   Input ~ 0
+Text GLabel 4050 3550 2    50   Input ~ 0
 DATA
 Connection ~ 2950 2400
 $Comp
@@ -310,4 +304,6 @@ F 4 "C77848" H 3550 2400 50  0001 C CNN "LCSC"
 $EndComp
 Wire Wire Line
 	2950 2100 3550 2100
+Wire Wire Line
+	7500 4400 7100 4400
 $EndSCHEMATC
