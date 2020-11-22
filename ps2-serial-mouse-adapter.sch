@@ -169,13 +169,11 @@ NoConn ~ 3200 3150
 NoConn ~ 3200 3250
 NoConn ~ 3200 3350
 NoConn ~ 4050 3350
-NoConn ~ 4050 4050
 NoConn ~ 4050 3650
 NoConn ~ 4050 3750
 NoConn ~ 4050 3850
 NoConn ~ 3200 3950
 NoConn ~ 4050 3950
-NoConn ~ 4050 4150
 NoConn ~ 4050 4250
 Text GLabel 4050 3450 2    50   Input ~ 0
 VCC
@@ -300,4 +298,33 @@ Wire Wire Line
 Wire Wire Line
 	7350 4000 7100 4000
 NoConn ~ 3450 4600
+$Comp
+L Connector_Generic:Conn_02x02_Odd_Even JP1
+U 1 1 5FBCC7CA
+P 4500 4150
+F 0 "JP1" H 4550 3825 50  0000 C CNN
+F 1 "Conn_02x02_Odd_Even" H 4550 3916 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x02_P2.54mm_Vertical" H 4500 4150 50  0001 C CNN
+F 3 "~" H 4500 4150 50  0001 C CNN
+	1    4500 4150
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	4050 4050 4300 4050
+Wire Wire Line
+	4050 4150 4300 4150
+Wire Wire Line
+	4800 4050 4800 4150
+$Comp
+L power:GND #PWR03
+U 1 1 5FBCEBB9
+P 4800 4150
+F 0 "#PWR03" H 4800 3900 50  0001 C CNN
+F 1 "GND" H 4950 4100 50  0000 C CNN
+F 2 "" H 4800 4150 50  0001 C CNN
+F 3 "" H 4800 4150 50  0001 C CNN
+	1    4800 4150
+	1    0    0    -1  
+$EndComp
+Connection ~ 4800 4150
 $EndSCHEMATC
