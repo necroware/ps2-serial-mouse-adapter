@@ -21,6 +21,7 @@ F 0 "U2" H 6300 4200 50  0000 C CNN
 F 1 "MAX232" H 6300 4050 50  0000 C CNN
 F 2 "Package_DIP:DIP-16_W7.62mm_Socket" H 6350 2650 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/max232.pdf" H 6300 3800 50  0001 C CNN
+F 4 "C911187" H 6300 3700 50  0001 C CNN "LCSC Part"
 	1    6300 3700
 	1    0    0    -1  
 $EndComp
@@ -277,7 +278,7 @@ F 0 "MOUSE1" H 3550 2767 50  0000 C CNN
 F 1 "Mini-DIN-6" H 3550 2676 50  0000 C CNN
 F 2 "Necroware:Mini_DIN_6_LCSC_C77848" H 3550 2400 50  0001 C CNN
 F 3 "http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf" H 3550 2400 50  0001 C CNN
-F 4 "C77848" H 3550 2400 50  0001 C CNN "LCSC"
+F 4 "C77848" H 3550 2400 50  0001 C CNN "LCSC Part"
 	1    3550 2400
 	-1   0    0    1   
 $EndComp
