@@ -259,7 +259,7 @@ NoConn ~ 3200 4050
 NoConn ~ 3200 4150
 NoConn ~ 3200 4250
 $Comp
-L MyLib:Arduino_Mini U1
+L Necroware:Arduino_Mini U1
 U 1 1 5FBA0BED
 P 3200 2950
 F 0 "U1" H 3625 3015 50  0000 C CNN
@@ -270,12 +270,12 @@ F 3 "" H 3200 2950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L MyLib:Mini-DIN-6_shielded MOUSE1
+L Necroware:Mini-DIN-6_shielded MOUSE1
 U 1 1 5FBA6BF7
 P 3550 2400
 F 0 "MOUSE1" H 3550 2767 50  0000 C CNN
 F 1 "Mini-DIN-6" H 3550 2676 50  0000 C CNN
-F 2 "MyLibrary:Mini_DIN_6_LCSC_C77848" H 3550 2400 50  0001 C CNN
+F 2 "Necroware:Mini_DIN_6_LCSC_C77848" H 3550 2400 50  0001 C CNN
 F 3 "http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf" H 3550 2400 50  0001 C CNN
 F 4 "C77848" H 3550 2400 50  0001 C CNN "LCSC"
 	1    3550 2400
