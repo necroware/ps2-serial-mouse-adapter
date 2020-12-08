@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "PS/2 to Serial Mouse Adapter"
-Date "2020-11-21"
-Rev "0.5"
+Date "2020-12-08"
+Rev "0.6"
 Comp "Necroware"
 Comment1 "by Scorp"
 Comment2 ""
@@ -117,7 +117,7 @@ NoConn ~ 7900 3700
 NoConn ~ 7900 4100
 NoConn ~ 7900 4300
 $Comp
-L Connector:DB9_Female RS232
+L Connector:DB9_Female_MountingHoles RS232
 U 1 1 5FBA566F
 P 8200 4000
 F 0 "RS232" H 8380 4046 50  0000 L CNN
@@ -130,12 +130,12 @@ $EndComp
 $Comp
 L power:GND #PWR07
 U 1 1 5FB93712
-P 7900 4400
-F 0 "#PWR07" H 7900 4150 50  0001 C CNN
-F 1 "GND" H 7900 4250 50  0000 C CNN
-F 2 "" H 7900 4400 50  0001 C CNN
-F 3 "" H 7900 4400 50  0001 C CNN
-	1    7900 4400
+P 8200 4600
+F 0 "#PWR07" H 8200 4350 50  0001 C CNN
+F 1 "GND" H 8200 4450 50  0000 C CNN
+F 2 "" H 8200 4600 50  0001 C CNN
+F 3 "" H 8200 4600 50  0001 C CNN
+	1    8200 4600
 	1    0    0    -1  
 $EndComp
 NoConn ~ 7900 4000
@@ -159,12 +159,6 @@ Wire Wire Line
 	6700 2400 6300 2400
 Wire Wire Line
 	6300 2400 6300 2500
-Wire Wire Line
-	4050 3150 4150 3150
-Wire Wire Line
-	4150 3150 4150 2400
-Wire Wire Line
-	4150 2400 6300 2400
 Connection ~ 6300 2400
 NoConn ~ 3200 3150
 NoConn ~ 3200 3250
@@ -176,8 +170,6 @@ NoConn ~ 4050 3850
 NoConn ~ 3200 3950
 NoConn ~ 4050 3950
 NoConn ~ 4050 4250
-Text GLabel 4050 3450 2    50   Input ~ 0
-VCC
 NoConn ~ 3550 4600
 NoConn ~ 3650 4600
 NoConn ~ 3750 4600
@@ -225,9 +217,6 @@ Text GLabel 3250 2500 0    50   Input ~ 0
 CLK
 Text GLabel 3250 2300 0    50   Input ~ 0
 DATA
-Wire Wire Line
-	3850 2400 4150 2400
-Connection ~ 4150 2400
 Text GLabel 3200 3550 0    50   Input ~ 0
 CLK
 Text GLabel 4050 3550 2    50   Input ~ 0
@@ -244,8 +233,6 @@ F 3 "~" H 3100 1650 50  0001 C CNN
 	1    2950 1700
 	1    0    0    -1  
 $EndComp
-Text GLabel 3250 1500 2    50   Input ~ 0
-VCC
 NoConn ~ 3250 1700
 NoConn ~ 3250 1800
 NoConn ~ 3250 1900
@@ -259,17 +246,6 @@ Wire Wire Line
 NoConn ~ 3200 4050
 NoConn ~ 3200 4150
 NoConn ~ 3200 4250
-$Comp
-L Necroware:Arduino_Mini U1
-U 1 1 5FBA0BED
-P 3200 2950
-F 0 "U1" H 3625 3015 50  0000 C CNN
-F 1 "Arduino_Mini" H 3625 2924 50  0000 C CNN
-F 2 "Package_DIP:DIP-24_W15.24mm_Socket" H 3200 2950 50  0001 C CNN
-F 3 "" H 3200 2950 50  0001 C CNN
-	1    3200 2950
-	1    0    0    -1  
-$EndComp
 $Comp
 L Necroware:Mini-DIN-6_shielded MOUSE1
 U 1 1 5FBA6BF7
@@ -328,4 +304,34 @@ F 3 "" H 4800 4150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 4800 4150
+Wire Wire Line
+	7900 4400 7900 4600
+Wire Wire Line
+	7900 4600 8200 4600
+Connection ~ 8200 4600
+$Comp
+L Necroware:Arduino_Mini U1
+U 1 1 5FBA0BED
+P 3200 2950
+F 0 "U1" H 3625 3015 50  0000 C CNN
+F 1 "Arduino_Mini" H 3625 2924 50  0000 C CNN
+F 2 "Package_DIP:DIP-24_W15.24mm_Socket" H 3200 2950 50  0001 C CNN
+F 3 "" H 3200 2950 50  0001 C CNN
+	1    3200 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 2400 4650 2400
+NoConn ~ 4050 3150
+Wire Wire Line
+	4050 3450 4650 3450
+Wire Wire Line
+	4650 3450 4650 2400
+Connection ~ 4650 2400
+Wire Wire Line
+	4650 2400 6300 2400
+Wire Wire Line
+	3250 1500 4650 1500
+Wire Wire Line
+	4650 1500 4650 2400
 $EndSCHEMATC
