@@ -60,10 +60,8 @@ static void initPs2Mouse() {
 static void initSerialMouse() {
   Serial.print("Activating Serial Port... ");
   pinMode(RS232_TX, OUTPUT);
-  delay(10);
   reset = false;
   sendSerialByte('M');
-  delay(50);
   sendSerialByte('3');
   Serial.println("ok");
 }

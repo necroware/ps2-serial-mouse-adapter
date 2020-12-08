@@ -60,21 +60,15 @@ enum class Response {
 };
 
 void sendBit(uint8_t clockPin, uint8_t dataPin, uint8_t value) {
-  Serial.println(__LINE__);
   while (digitalRead(clockPin) != LOW) {}
-  Serial.println(__LINE__);
   digitalWrite(dataPin, value ? 1 : 0);
   while (digitalRead(clockPin) != HIGH) {}
-  Serial.println(__LINE__);
 }
 
 uint8_t recvBit(uint8_t clockPin, uint8_t dataPin) {
-  Serial.println(__LINE__);
   while (digitalRead(clockPin) != LOW) {}
-  Serial.println(__LINE__);
   uint8_t result = digitalRead(dataPin);
   while (digitalRead(clockPin) != HIGH) {}
-  Serial.println(__LINE__);
   return result;
 }
 
@@ -95,9 +89,7 @@ bool sendByte(uint8_t clockPin, uint8_t dataPin, uint8_t value) {
   for (int i = 0; i < 8; i++) {
     int nextBit = (value >> i) & 0x01;
     parity ^= nextBit;
-    Serial.println(__LINE__);
     sendBit(clockPin, dataPin, nextBit);
-    Serial.println(__LINE__);
   }
 
   // Send parity bit
@@ -200,7 +192,6 @@ Ps2Mouse::Ps2Mouse(uint8_t clockPin, uint8_t dataPin, Mode mode)
 {}
 
 bool Ps2Mouse::reset() const {
-  Serial.println(__LINE__);
   if (sendCommand(m_clockPin, m_dataPin, Command::reset)) {
     uint8_t reply;
     recvByte(m_clockPin, m_dataPin, &reply);
