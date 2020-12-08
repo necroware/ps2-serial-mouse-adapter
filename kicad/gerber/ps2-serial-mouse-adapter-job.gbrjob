@@ -5,9 +5,9 @@
     {
       "Vendor":      "KiCad",
       "Application": "Pcbnew",
-      "Version":     "5.1.7"
+      "Version":     "5.1.8"
     },
-    "CreationDate":  "2020-11-23T19:29:32+01:00"
+    "CreationDate":  "2020-12-08T11:40:13+01:00"
   },
   "GeneralSpecs":
   {
@@ -15,7 +15,7 @@
     {
       "Name": "ps2-serial-mouse-adapter",
       "GUID": "7073322d-7365-4726-9961-6c2d6d6f7573",
-      "Revision": "0.5"
+      "Revision": "0.6"
     },
     "Size":
     {
