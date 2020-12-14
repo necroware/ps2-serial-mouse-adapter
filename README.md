@@ -45,8 +45,7 @@ Connecting the adapter to the PC is very simple. Plug your PS/2 Mouse into the
 adapter, connect a mini USB cable to power the adapter. Plug the adapter into a
 serial port of your PC. Turn on the PC and use a serial mouse driver of your
 choice. The adapter was tested with Microsoft, Logitech and Cute mouse drivers.
-Cute Mouse Driver is part of FreeDos project and you can find the latest version
-here: http://cutemouse.sourceforge.net/
+Cute Mouse Driver is part of FreeDos project and is free and open source.
 
 **REMARK:** *Jumper JP1 is currently not in use.*
 
@@ -63,5 +62,7 @@ PWR1       |1  |C46398 | Mini-USB port for power supply
 C1-5       |5  |C106448| 1µF electrolytic capacitor
 JP1        |1  |       | 2x2 jumper header (optional)
 
-
-
+# Links
+* [PS/2 Mouse Protocol](http://www-ug.eecg.utoronto.ca/desl/nios_devices_SoC/datasheets/PS2%20Protocol.htm)
+* [Serial Mouse Protocol](https://linux.die.net/man/4/mouse)
+* [Cute Mouse Driver](here: http://cutemouse.sourceforge.net)

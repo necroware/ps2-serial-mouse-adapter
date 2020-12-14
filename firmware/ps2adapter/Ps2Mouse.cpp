@@ -77,7 +77,7 @@ bool sendByte(uint8_t clockPin, uint8_t dataPin, uint8_t value) {
   // Inhibit communication
   pinMode(clockPin, OUTPUT);
   digitalWrite(clockPin, LOW);
-  delayMicroseconds(150);
+  delayMicroseconds(100);
 
   // Set start bit and release the clock
   pinMode(dataPin, OUTPUT);
