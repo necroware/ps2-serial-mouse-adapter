@@ -48,7 +48,7 @@ choice. The adapter was tested with Microsoft, Logitech and Cute mouse drivers.
 Cute Mouse Driver is part of FreeDos project and you can find the latest version
 here: http://cutemouse.sourceforge.net/
 
-**REMARK:** *Jumper JP2 is currently not in use.*
+**REMARK:** *Jumper JP1 is currently not in use.*
 
 
 # Bill of materials
