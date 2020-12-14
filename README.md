@@ -38,8 +38,8 @@ the adapter, connect the Arduino Mini using FTDI to your PC and flash the
 firmware using Arduino Studio. If you don't know how to do that, please refer to
 the documentation of Arduino. 
 
-__ATTENTION!__ **The USB port (PWR1) on the adapter is only for powering the
-circuits, it is not a data port!**
+**ATTENTION!** *The USB port (PWR1) on the adapter is only for powering the
+circuits, it is not a data port!*
 
 Connecting the adapter to the PC is very simple. Plug your PS/2 Mouse into the
 adapter, connect a mini USB cable to power the adapter. Plug the adapter into a
@@ -48,7 +48,7 @@ choice. The adapter was tested with Microsoft, Logitech and Cute mouse drivers.
 Cute Mouse Driver is part of FreeDos project and you can find the latest version
 here: http://cutemouse.sourceforge.net/
 
-**REMARK: Jumper JP2 is currently not in use.**
+**REMARK:** *Jumper JP2 is currently not in use.*
 
 
 # Bill of materials
