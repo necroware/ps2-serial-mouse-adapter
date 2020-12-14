@@ -10,7 +10,7 @@ a serial port of a retro PC.
 
 ![ps2-adapter](images/top.jpg)
 
-# How does it work?
+## How does it work?
 
 The serial port on the computer communicates with the mouse using basically two
 pins - RTS and RX. RTS is used for notification and RX for the actual data
@@ -30,7 +30,7 @@ converts TTL voltage level to RS232 levels. In this adapter such conversion is
 made by a well known MAX232 IC. The software is written in C, it is a simple
 Arduino project, which can be used in Arduino Studio as usual.
 
-# How to use?
+## How to use?
 
 This project contains everything you need to build your own adapter. You can use
 the gerber files to order a PCB. The list of materials is below. After soldering
@@ -50,7 +50,7 @@ Cute Mouse Driver is part of FreeDos project and is free and open source.
 **REMARK:** *Jumper JP1 is currently not in use.*
 
 
-# Bill of materials
+## Bill of materials
 
 Reference  |#  |LCSC   |Description
 -----------|---|-------|------------------------------------------
@@ -62,7 +62,8 @@ PWR1       |1  |C46398 | Mini-USB port for power supply
 C1-5       |5  |C106448| 1µF electrolytic capacitor
 JP1        |1  |       | 2x2 jumper header (optional)
 
-# Links
+## Links
+
 * [PS/2 Mouse Protocol](http://www-ug.eecg.utoronto.ca/desl/nios_devices_SoC/datasheets/PS2%20Protocol.htm)
 * [Serial Mouse Protocol](https://linux.die.net/man/4/mouse)
 * [Cute Mouse Driver](here: http://cutemouse.sourceforge.net)
