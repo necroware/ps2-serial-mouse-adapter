@@ -66,4 +66,4 @@ JP1        |1  |       | 2x2 jumper header (optional)
 
 * [PS/2 Mouse Protocol](http://www-ug.eecg.utoronto.ca/desl/nios_devices_SoC/datasheets/PS2%20Protocol.htm)
 * [Serial Mouse Protocol](https://linux.die.net/man/4/mouse)
-* [Cute Mouse Driver](here: http://cutemouse.sourceforge.net)
+* [Cute Mouse Driver](http://cutemouse.sourceforge.net)
