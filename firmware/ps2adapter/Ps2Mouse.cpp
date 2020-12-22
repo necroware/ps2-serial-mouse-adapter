@@ -60,7 +60,7 @@ enum class Response {
 
 void sendBit(int clockPin, int dataPin, int value) {
   while (digitalRead(clockPin) != LOW) {}
-  digitalWrite(dataPin, value ? 1 : 0);
+  digitalWrite(dataPin, value);
   while (digitalRead(clockPin) != HIGH) {}
 }
 
@@ -84,9 +84,9 @@ bool sendByte(int clockPin, int dataPin, byte value) {
   pinMode(clockPin, INPUT_PULLUP);
   
   // Send data bits
-  int parity = 1;
-  for (int i = 0; i < 8; i++) {
-    int nextBit = (value >> i) & 0x01;
+  byte parity = 1;
+  for (auto i = 0; i < 8; i++) {
+    byte nextBit = (value >> i) & 0x01;
     parity ^= nextBit;
     sendBit(clockPin, dataPin, nextBit);
   }
@@ -115,9 +115,9 @@ bool recvByte(int clockPin, int dataPin, byte& value) {
 
   // Receive data bits
   value = 0;
-  int parity = 1;
+  byte parity = 1;
   for (int i = 0; i < 8; i++) {
-    int nextBit = recvBit(clockPin, dataPin);
+    byte nextBit = recvBit(clockPin, dataPin);
     value |= nextBit << i;
     parity ^= nextBit;
   }

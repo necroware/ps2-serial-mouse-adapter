@@ -35,11 +35,11 @@ static void sendSerialByte(byte data) {
 }
 
 static void sendToSerial(const Ps2Mouse::Data& data) {
-  byte lb = data.leftButton << 5;
-  byte rb = data.rightButton << 4;
   byte dx = static_cast<byte>(constrain(data.xMovement, -127, 127));
   byte dy = static_cast<byte>(constrain(-data.yMovement, -127, 127));
-  byte mb = data.middleButton ? 0x20 : 0x00;
+  byte lb = data.leftButton ? 0x20 : 0;
+  byte rb = data.rightButton ? 0x10 : 0;
+  byte mb = data.middleButton ? 0x20 : 0;
   sendSerialByte(0x40 | lb | rb | ((dy >> 4) & 0xC) | (dx >> 6));
   sendSerialByte(dx & 0x3F);
   sendSerialByte(dy & 0x3F);
