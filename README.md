@@ -62,6 +62,20 @@ PWR1       |1  |C46398 | Mini-USB port for power supply
 C1-5       |5  |C106448| 1µF electrolytic capacitor
 JP1        |1  |       | 2x2 jumper header (optional)
 
+## Known issues
+
+The code is still in development. It works, but it still has some flaws. Timing
+is really important in this project and sometimes mouse drivers seem not to get
+a response in time from the adapter. Usually just executing the driver once
+again will initialize the mouse.
+
+## Tested Mice
+
+If you test the adapter with a mouse, which is not in this list please consider
+to submit a report to improve the compatibility of the adapter.
+
+* Logitech Optical Mouse M-BT58
+
 ## Links
 
 * [PS/2 Mouse Protocol description](https://isdaman.com/alsos/hardware/mouse/ps2interface.htm)
