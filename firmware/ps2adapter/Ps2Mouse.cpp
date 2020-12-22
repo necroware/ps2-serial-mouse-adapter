@@ -102,11 +102,7 @@ bool sendByte(int clockPin, int dataPin, byte value) {
   return recvBit(clockPin, dataPin) == 0;
 }
 
-bool recvByte(int clockPin, int dataPin, byte* value) {
-
-  if (!value) {
-    return false;
-  }
+bool recvByte(int clockPin, int dataPin, byte& value) {
 
   // Enter receive mode
   pinMode(clockPin, INPUT);
@@ -118,11 +114,11 @@ bool recvByte(int clockPin, int dataPin, byte* value) {
   }
 
   // Receive data bits
-  *value = 0;
+  value = 0;
   int parity = 1;
   for (int i = 0; i < 8; i++) {
     int nextBit = recvBit(clockPin, dataPin);
-    *value |= nextBit << i;
+    value |= nextBit << i;
     parity ^= nextBit;
   }
 
@@ -150,7 +146,7 @@ template <typename T>
 bool recvData(int clockPin, int dataPin, T& data) {
   auto ptr = reinterpret_cast<byte*>(&data);
   for (auto i = 0; i < sizeof(data); i++) {
-    if (!recvByte(clockPin, dataPin, &ptr[i])) {
+    if (!recvByte(clockPin, dataPin, ptr[i])) {
       return false;
     }
   }
@@ -161,7 +157,7 @@ bool sendByteWithAck(int clockPin, int dataPin, byte value) {
   while (true) {
     if (sendByte(clockPin, dataPin, value)) {
       byte response;
-      if (recvByte(clockPin, dataPin, &response)) {
+      if (recvByte(clockPin, dataPin, response)) {
         if (response == static_cast<byte>(Response::resend)) {
           continue;
         }
@@ -209,9 +205,9 @@ Ps2Mouse::Ps2Mouse(int clockPin, int dataPin, Mode mode)
 bool Ps2Mouse::reset() const {
   if (sendCommand(m_clockPin, m_dataPin, Command::reset)) {
     byte reply;
-    recvByte(m_clockPin, m_dataPin, &reply);
+    recvByte(m_clockPin, m_dataPin, reply);
     if (reply == static_cast<byte>(Response::selfTestPassed)) {
-      recvByte(m_clockPin, m_dataPin, &reply);
+      recvByte(m_clockPin, m_dataPin, reply);
       if (reply == static_cast<byte>(Response::isMouse)) {
         return setMode(m_clockPin, m_dataPin, m_mode);
       }
