@@ -27,7 +27,7 @@ voltage levels. Any voltage below -3V is a logical one and a voltage above +3V
 is a logical zero. So, it is not possible to connect Arduino output directly to
 the serial port. It simply will not work and needs another translator, which
 converts TTL voltage level to RS232 levels. In this adapter such conversion is
-made by a well known MAX232 IC. The software is written in C, it is a simple
+made by a well known MAX232 IC. The software is written in C/C++, it is a simple
 Arduino project, which can be used in Arduino Studio as usual.
 
 ## How to use?
