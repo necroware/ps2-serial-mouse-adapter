@@ -14,8 +14,8 @@ public:
     bool leftButton;
     bool middleButton;
     bool rightButton;
-    short xMovement;
-    short yMovement; 
+    int  xMovement;
+    int  yMovement;
   };
   
   Ps2Mouse(int clockPin, int dataPin, Mode mode);
