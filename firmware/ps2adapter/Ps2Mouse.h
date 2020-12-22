@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdint.h>
+#include <Arduino.h>
 
 class Ps2Mouse {
 public:
@@ -18,7 +18,7 @@ public:
     short yMovement; 
   };
   
-  Ps2Mouse(uint8_t clockPin, uint8_t dataPin, Mode mode);
+  Ps2Mouse(int clockPin, int dataPin, Mode mode);
 
   bool reset() const;
 
@@ -28,18 +28,18 @@ public:
   bool setScaling(bool flag) const;
   bool getScaling(bool& flag) const;
 
-  bool setResolution(uint8_t resolution) const;
-  bool getResolution(uint8_t& resolution) const;
+  bool setResolution(byte resolution) const;
+  bool getResolution(byte& resolution) const;
 
-  bool setSampleRate(uint8_t sampleRate) const;
-  bool getSampleRate(uint8_t& sampleRate) const;
+  bool setSampleRate(byte sampleRate) const;
+  bool getSampleRate(byte& sampleRate) const;
 
   bool hasData() const;
 
   bool readData(Data& data) const;
 
 private:
-  uint8_t m_clockPin;
-  uint8_t m_dataPin;
+  int m_clockPin;
+  int m_dataPin;
   Mode m_mode;
 };

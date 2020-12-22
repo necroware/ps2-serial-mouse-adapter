@@ -1,36 +1,35 @@
 #include "Ps2Mouse.h"
-#include <Arduino.h>
 
 namespace {
 
 struct Status {
 
-  uint8_t rightButton   : 1;
-  uint8_t middleButton  : 1;
-  uint8_t leftButton    : 1;
-  uint8_t na2           : 1;
-  uint8_t scaling       : 1;
-  uint8_t dataReporting : 1;
-  uint8_t remoteMode    : 1;
-  uint8_t na1           : 1;
+  byte rightButton   : 1;
+  byte middleButton  : 1;
+  byte leftButton    : 1;
+  byte na2           : 1;
+  byte scaling       : 1;
+  byte dataReporting : 1;
+  byte remoteMode    : 1;
+  byte na1           : 1;
 
-  uint8_t resolution;
-  uint8_t sampleRate;
+  byte resolution;
+  byte sampleRate;
 };
 
 struct Packet {
 
-  uint8_t leftButton    : 1;
-  uint8_t rightButton   : 1;
-  uint8_t middleButton  : 1;
-  uint8_t na            : 1;
-  uint8_t xSign         : 1;
-  uint8_t ySign         : 1;
-  uint8_t xOverflow     : 1;
-  uint8_t yOverflow     : 1;
+  byte leftButton    : 1;
+  byte rightButton   : 1;
+  byte middleButton  : 1;
+  byte na            : 1;
+  byte xSign         : 1;
+  byte ySign         : 1;
+  byte xOverflow     : 1;
+  byte yOverflow     : 1;
 
-  uint8_t xMovement;
-  uint8_t yMovement;
+  byte xMovement;
+  byte yMovement;
 };
 
 enum class Command {
@@ -59,20 +58,20 @@ enum class Response {
   resend         = 0xFE,
 };
 
-void sendBit(uint8_t clockPin, uint8_t dataPin, uint8_t value) {
+void sendBit(int clockPin, int dataPin, int value) {
   while (digitalRead(clockPin) != LOW) {}
   digitalWrite(dataPin, value ? 1 : 0);
   while (digitalRead(clockPin) != HIGH) {}
 }
 
-uint8_t recvBit(uint8_t clockPin, uint8_t dataPin) {
+int recvBit(int clockPin, int dataPin) {
   while (digitalRead(clockPin) != LOW) {}
-  uint8_t result = digitalRead(dataPin);
+  auto result = digitalRead(dataPin);
   while (digitalRead(clockPin) != HIGH) {}
   return result;
 }
 
-bool sendByte(uint8_t clockPin, uint8_t dataPin, uint8_t value) {
+bool sendByte(int clockPin, int dataPin, byte value) {
 
   // Inhibit communication
   pinMode(clockPin, OUTPUT);
@@ -103,7 +102,7 @@ bool sendByte(uint8_t clockPin, uint8_t dataPin, uint8_t value) {
   return recvBit(clockPin, dataPin) == 0;
 }
 
-bool recvByte(uint8_t clockPin, uint8_t dataPin, uint8_t* value) {
+bool recvByte(int clockPin, int dataPin, byte* value) {
 
   if (!value) {
     return false;
@@ -137,8 +136,8 @@ bool recvByte(uint8_t clockPin, uint8_t dataPin, uint8_t* value) {
 }
 
 template <typename T>
-bool sendData(uint8_t clockPin, uint8_t dataPin, const T& data) {
-  auto ptr = reinterpret_cast<const uint8_t*>(&data);
+bool sendData(int clockPin, int dataPin, const T& data) {
+  auto ptr = reinterpret_cast<const byte*>(&data);
   for (auto i = 0; i < sizeof(data); i++) {
     if (!sendByte(clockPin, dataPin, ptr[i])) {
       return false;
@@ -148,8 +147,8 @@ bool sendData(uint8_t clockPin, uint8_t dataPin, const T& data) {
 }
 
 template <typename T>
-bool recvData(uint8_t clockPin, uint8_t dataPin, T& data) {
-  auto ptr = reinterpret_cast<uint8_t*>(&data);
+bool recvData(int clockPin, int dataPin, T& data) {
+  auto ptr = reinterpret_cast<byte*>(&data);
   for (auto i = 0; i < sizeof(data); i++) {
     if (!recvByte(clockPin, dataPin, &ptr[i])) {
       return false;
@@ -158,40 +157,40 @@ bool recvData(uint8_t clockPin, uint8_t dataPin, T& data) {
   return true;
 }
 
-bool sendByteWithAck(uint8_t clockPin, uint8_t dataPin, uint8_t value) {
+bool sendByteWithAck(int clockPin, int dataPin, byte value) {
   while (true) {
     if (sendByte(clockPin, dataPin, value)) {
-      uint8_t response;
+      byte response;
       if (recvByte(clockPin, dataPin, &response)) {
-        if (response == static_cast<uint8_t>(Response::resend)) {
+        if (response == static_cast<byte>(Response::resend)) {
           continue;
         }
-        return response == static_cast<uint8_t>(Response::ack);
+        return response == static_cast<byte>(Response::ack);
       }
     }
     return false;
   }
 }
 
-bool sendCommand(uint8_t clockPin, uint8_t dataPin, Command command) {
-  return sendByteWithAck(clockPin, dataPin, static_cast<uint8_t>(command));
+bool sendCommand(int clockPin, int dataPin, Command command) {
+  return sendByteWithAck(clockPin, dataPin, static_cast<byte>(command));
 }
 
-bool sendSetting(uint8_t clockPin, uint8_t dataPin, Command command, uint8_t setting) {
+bool sendSetting(int clockPin, int dataPin, Command command, byte setting) {
   if (sendCommand(clockPin, dataPin, command)) {
     return sendByteWithAck(clockPin, dataPin, setting);
   }
   return false;
 }
 
-bool getStatus(uint8_t clockPin, uint8_t dataPin, Status& status) {
+bool getStatus(int clockPin, int dataPin, Status& status) {
   if (sendCommand(clockPin, dataPin, Command::statusRequest)) {
     return recvData(clockPin, dataPin, status);
   }
   return false;
 }
 
-bool setMode(uint8_t clockPin, uint8_t dataPin, Ps2Mouse::Mode mode) {
+bool setMode(int clockPin, int dataPin, Ps2Mouse::Mode mode) {
   switch (mode) {
     case Ps2Mouse::Mode::remote:
       return sendCommand(clockPin, dataPin, Command::setRemoteMode);
@@ -203,17 +202,17 @@ bool setMode(uint8_t clockPin, uint8_t dataPin, Ps2Mouse::Mode mode) {
 
 } // namespace
 
-Ps2Mouse::Ps2Mouse(uint8_t clockPin, uint8_t dataPin, Mode mode)
+Ps2Mouse::Ps2Mouse(int clockPin, int dataPin, Mode mode)
   : m_clockPin(clockPin), m_dataPin(dataPin), m_mode(mode)
 {}
 
 bool Ps2Mouse::reset() const {
   if (sendCommand(m_clockPin, m_dataPin, Command::reset)) {
-    uint8_t reply;
+    byte reply;
     recvByte(m_clockPin, m_dataPin, &reply);
-    if (reply == static_cast<uint8_t>(Response::selfTestPassed)) {
+    if (reply == static_cast<byte>(Response::selfTestPassed)) {
       recvByte(m_clockPin, m_dataPin, &reply);
-      if (reply == static_cast<uint8_t>(Response::isMouse)) {
+      if (reply == static_cast<byte>(Response::isMouse)) {
         return setMode(m_clockPin, m_dataPin, m_mode);
       }
     }
@@ -249,11 +248,11 @@ bool Ps2Mouse::getScaling(bool& flag) const {
   return false;
 }
 
-bool Ps2Mouse::setResolution(uint8_t resolution) const {
+bool Ps2Mouse::setResolution(byte resolution) const {
   return sendSetting(m_clockPin, m_dataPin, Command::setResolution, resolution);
 }
 
-bool Ps2Mouse::getResolution(uint8_t& resolution) const {
+bool Ps2Mouse::getResolution(byte& resolution) const {
   Status status;
   if (getStatus(m_clockPin, m_dataPin, status)) {
     resolution = status.resolution;
@@ -262,11 +261,11 @@ bool Ps2Mouse::getResolution(uint8_t& resolution) const {
   return false;
 }
 
-bool Ps2Mouse::setSampleRate(uint8_t sampleRate) const {
+bool Ps2Mouse::setSampleRate(byte sampleRate) const {
   return sendSetting(m_clockPin, m_dataPin, Command::setSampleRate, sampleRate);
 }
 
-bool Ps2Mouse::getSampleRate(uint8_t& sampleRate) const {
+bool Ps2Mouse::getSampleRate(byte& sampleRate) const {
   Status status;
   if (getStatus(m_clockPin, m_dataPin, status)) {
     sampleRate = status.sampleRate;
