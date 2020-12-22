@@ -136,6 +136,28 @@ bool recvByte(uint8_t clockPin, uint8_t dataPin, uint8_t* value) {
   return true;
 }
 
+template <typename T>
+bool sendData(uint8_t clockPin, uint8_t dataPin, const T& data) {
+  auto ptr = reinterpret_cast<const uint8_t*>(&data);
+  for (auto i = 0; i < sizeof(data); i++) {
+    if (!sendByte(clockPin, dataPin, ptr[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+template <typename T>
+bool recvData(uint8_t clockPin, uint8_t dataPin, T& data) {
+  auto ptr = reinterpret_cast<uint8_t*>(&data);
+  for (auto i = 0; i < sizeof(data); i++) {
+    if (!recvByte(clockPin, dataPin, &ptr[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
 bool sendByteWithAck(uint8_t clockPin, uint8_t dataPin, uint8_t value) {
   while (true) {
     if (sendByte(clockPin, dataPin, value)) {
@@ -164,13 +186,7 @@ bool sendSetting(uint8_t clockPin, uint8_t dataPin, Command command, uint8_t set
 
 bool getStatus(uint8_t clockPin, uint8_t dataPin, Status& status) {
   if (sendCommand(clockPin, dataPin, Command::statusRequest)) {
-    uint8_t* ptr = reinterpret_cast<uint8_t*>(&status);
-    for (int i = 0; i < 3; i++) {
-      if (!recvByte(clockPin, dataPin, ptr + i)) {
-        return false;
-      }
-    }
-    return true;
+    return recvData(clockPin, dataPin, status);
   }
   return false;
 }
@@ -270,11 +286,8 @@ bool Ps2Mouse::readData(Data& data) const {
   }
 
   Packet packet;
-  uint8_t* ptr = reinterpret_cast<uint8_t*>(&packet);
-  for (size_t i = 0; i < sizeof(packet); i++) {
-    if (!recvByte(m_clockPin, m_dataPin, ptr + i)) {
-      return false;
-    }
+  if (!recvData(m_clockPin, m_dataPin, packet)) {
+    return false;
   }
 
   data.leftButton = packet.leftButton;
