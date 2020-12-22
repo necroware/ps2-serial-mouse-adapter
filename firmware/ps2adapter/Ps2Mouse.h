@@ -39,6 +39,8 @@ public:
   bool readData(Data& data) const;
 
 private:
+  struct Impl;
+
   int m_clockPin;
   int m_dataPin;
   Mode m_mode;

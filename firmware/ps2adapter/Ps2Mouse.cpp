@@ -58,158 +58,164 @@ enum class Response {
   resend         = 0xFE,
 };
 
-void sendBit(int clockPin, int dataPin, int value) {
-  while (digitalRead(clockPin) != LOW) {}
-  digitalWrite(dataPin, value);
-  while (digitalRead(clockPin) != HIGH) {}
-}
+} // namespace
 
-int recvBit(int clockPin, int dataPin) {
-  while (digitalRead(clockPin) != LOW) {}
-  auto result = digitalRead(dataPin);
-  while (digitalRead(clockPin) != HIGH) {}
-  return result;
-}
+struct Ps2Mouse::Impl {
+  const Ps2Mouse& m_ref;
 
-bool sendByte(int clockPin, int dataPin, byte value) {
-
-  // Inhibit communication
-  pinMode(clockPin, OUTPUT);
-  digitalWrite(clockPin, LOW);
-  delayMicroseconds(100);
-
-  // Set start bit and release the clock
-  pinMode(dataPin, OUTPUT);
-  digitalWrite(dataPin, LOW);
-  pinMode(clockPin, INPUT_PULLUP);
-  
-  // Send data bits
-  byte parity = 1;
-  for (auto i = 0; i < 8; i++) {
-    byte nextBit = (value >> i) & 0x01;
-    parity ^= nextBit;
-    sendBit(clockPin, dataPin, nextBit);
+  void sendBit(int value) const {
+    while (digitalRead(m_ref.m_clockPin) != LOW) {}
+    digitalWrite(m_ref.m_dataPin, value);
+    while (digitalRead(m_ref.m_clockPin) != HIGH) {}
   }
 
-  // Send parity bit
-  sendBit(clockPin, dataPin, parity);
-
-  // Send stop bit
-  sendBit(clockPin, dataPin, 1);
-
-  // Enter receive mode and wait for ACK bit
-  pinMode(dataPin, INPUT);
-  return recvBit(clockPin, dataPin) == 0;
-}
-
-bool recvByte(int clockPin, int dataPin, byte& value) {
-
-  // Enter receive mode
-  pinMode(clockPin, INPUT);
-  pinMode(dataPin, INPUT);
-
-  // Receive start bit
-  if (recvBit(clockPin, dataPin) != 0) {
-    return false;
+  int recvBit() const {
+    while (digitalRead(m_ref.m_clockPin) != LOW) {}
+    auto result = digitalRead(m_ref.m_dataPin);
+    while (digitalRead(m_ref.m_clockPin) != HIGH) {}
+    return result;
   }
 
-  // Receive data bits
-  value = 0;
-  byte parity = 1;
-  for (int i = 0; i < 8; i++) {
-    byte nextBit = recvBit(clockPin, dataPin);
-    value |= nextBit << i;
-    parity ^= nextBit;
+  bool sendByte(byte value) const {
+
+    // Inhibit communication
+    pinMode(m_ref.m_clockPin, OUTPUT);
+    digitalWrite(m_ref.m_clockPin, LOW);
+    delayMicroseconds(100);
+
+    // Set start bit and release the clock
+    pinMode(m_ref.m_dataPin, OUTPUT);
+    digitalWrite(m_ref.m_dataPin, LOW);
+    pinMode(m_ref.m_clockPin, INPUT_PULLUP);
+
+    // Send data bits
+    byte parity = 1;
+    for (auto i = 0; i < 8; i++) {
+      byte nextBit = (value >> i) & 0x01;
+      parity ^= nextBit;
+      sendBit(nextBit);
+    }
+
+    // Send parity bit
+    sendBit(parity);
+
+    // Send stop bit
+    sendBit(1);
+
+    // Enter receive mode and wait for ACK bit
+    pinMode(m_ref.m_dataPin, INPUT);
+    return recvBit() == 0;
   }
 
-  // Receive and check parity bit
-  recvBit(clockPin, dataPin); // TODO check parity
+  bool recvByte(byte& value) const {
 
-  // Receive stop bit
-  recvBit(clockPin, dataPin);
+    // Enter receive mode
+    pinMode(m_ref.m_clockPin, INPUT);
+    pinMode(m_ref.m_dataPin, INPUT);
 
-  return true;
-}
-
-template <typename T>
-bool sendData(int clockPin, int dataPin, const T& data) {
-  auto ptr = reinterpret_cast<const byte*>(&data);
-  for (auto i = 0; i < sizeof(data); i++) {
-    if (!sendByte(clockPin, dataPin, ptr[i])) {
+    // Receive start bit
+    if (recvBit() != 0) {
       return false;
     }
-  }
-  return true;
-}
 
-template <typename T>
-bool recvData(int clockPin, int dataPin, T& data) {
-  auto ptr = reinterpret_cast<byte*>(&data);
-  for (auto i = 0; i < sizeof(data); i++) {
-    if (!recvByte(clockPin, dataPin, ptr[i])) {
-      return false;
+    // Receive data bits
+    value = 0;
+    byte parity = 1;
+    for (int i = 0; i < 8; i++) {
+      byte nextBit = recvBit();
+      value |= nextBit << i;
+      parity ^= nextBit;
     }
-  }
-  return true;
-}
 
-bool sendByteWithAck(int clockPin, int dataPin, byte value) {
-  while (true) {
-    if (sendByte(clockPin, dataPin, value)) {
-      byte response;
-      if (recvByte(clockPin, dataPin, response)) {
-        if (response == static_cast<byte>(Response::resend)) {
-          continue;
-        }
-        return response == static_cast<byte>(Response::ack);
+    // Receive and check parity bit
+    recvBit(); // TODO check parity
+
+    // Receive stop bit
+    recvBit();
+
+    return true;
+  }
+
+  template <typename T>
+  bool sendData(const T& data) const {
+    auto ptr = reinterpret_cast<const byte*>(&data);
+    for (auto i = 0; i < sizeof(data); i++) {
+      if (!sendByte(ptr[i])) {
+        return false;
       }
     }
+    return true;
+  }
+
+  template <typename T>
+  bool recvData(T& data) const {
+    auto ptr = reinterpret_cast<byte*>(&data);
+    for (auto i = 0; i < sizeof(data); i++) {
+      if (!recvByte(ptr[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool sendByteWithAck(byte value) const {
+    while (true) {
+      if (sendByte(value)) {
+        byte response;
+        if (recvByte(response)) {
+          if (response == static_cast<byte>(Response::resend)) {
+            continue;
+          }
+          return response == static_cast<byte>(Response::ack);
+        }
+      }
+      return false;
+    }
+  }
+
+  bool sendCommand(Command command) const {
+    return sendByteWithAck(static_cast<byte>(command));
+  }
+
+  bool sendSetting(Command command, byte setting) const {
+    if (sendCommand(command)) {
+      return sendByteWithAck(setting);
+    }
     return false;
   }
-}
 
-bool sendCommand(int clockPin, int dataPin, Command command) {
-  return sendByteWithAck(clockPin, dataPin, static_cast<byte>(command));
-}
-
-bool sendSetting(int clockPin, int dataPin, Command command, byte setting) {
-  if (sendCommand(clockPin, dataPin, command)) {
-    return sendByteWithAck(clockPin, dataPin, setting);
+  bool getStatus(Status& status) const {
+    if (sendCommand(Command::statusRequest)) {
+      return recvData(status);
+    }
+    return false;
   }
-  return false;
-}
 
-bool getStatus(int clockPin, int dataPin, Status& status) {
-  if (sendCommand(clockPin, dataPin, Command::statusRequest)) {
-    return recvData(clockPin, dataPin, status);
+  bool setMode(Ps2Mouse::Mode mode) const {
+    switch (mode) {
+      case Ps2Mouse::Mode::remote:
+        return sendCommand(Command::setRemoteMode);
+      case Ps2Mouse::Mode::stream:
+        return sendCommand(Command::setStreamMode);
+    }
+    return false;
   }
-  return false;
-}
 
-bool setMode(int clockPin, int dataPin, Ps2Mouse::Mode mode) {
-  switch (mode) {
-    case Ps2Mouse::Mode::remote:
-      return sendCommand(clockPin, dataPin, Command::setRemoteMode);
-    case Ps2Mouse::Mode::stream:
-      return sendCommand(clockPin, dataPin, Command::setStreamMode);
-  }
-  return false;
-}
-
-} // namespace
+};
 
 Ps2Mouse::Ps2Mouse(int clockPin, int dataPin, Mode mode)
   : m_clockPin(clockPin), m_dataPin(dataPin), m_mode(mode)
 {}
 
 bool Ps2Mouse::reset() const {
-  if (sendCommand(m_clockPin, m_dataPin, Command::reset)) {
+  Impl impl{*this};
+  if (impl.sendCommand(Command::reset)) {
     byte reply;
-    recvByte(m_clockPin, m_dataPin, reply);
+    impl.recvByte(reply);
     if (reply == static_cast<byte>(Response::selfTestPassed)) {
-      recvByte(m_clockPin, m_dataPin, reply);
+      impl.recvByte(reply);
       if (reply == static_cast<byte>(Response::isMouse)) {
-        return setMode(m_clockPin, m_dataPin, m_mode);
+        return impl.setMode(m_mode);
       }
     }
   }
@@ -218,12 +224,12 @@ bool Ps2Mouse::reset() const {
 
 bool Ps2Mouse::setDataReporting(bool flag) const {
   Command command = flag ? Command::enableDataReporting : Command::disableDataReporting;
-  return sendCommand(m_clockPin, m_dataPin, command);
+  return Impl{*this}.sendCommand(command);
 }
 
 bool Ps2Mouse::getDataReporting(bool& flag) const {
   Status status;
-  if (getStatus(m_clockPin, m_dataPin, status)) {
+  if (Impl{*this}.getStatus(status)) {
     flag = status.dataReporting;
     return true;
   }
@@ -232,12 +238,12 @@ bool Ps2Mouse::getDataReporting(bool& flag) const {
 
 bool Ps2Mouse::setScaling(bool flag) const {
   Command command = flag ? Command::enableScaling : Command::disableScaling;
-  return sendCommand(m_clockPin, m_dataPin, command);
+  return Impl{*this}.sendCommand(command);
 }
 
 bool Ps2Mouse::getScaling(bool& flag) const {
   Status status;
-  if (getStatus(m_clockPin, m_dataPin, status)) {
+  if (Impl{*this}.getStatus(status)) {
     flag = status.scaling;
     return true;
   }
@@ -245,12 +251,12 @@ bool Ps2Mouse::getScaling(bool& flag) const {
 }
 
 bool Ps2Mouse::setResolution(byte resolution) const {
-  return sendSetting(m_clockPin, m_dataPin, Command::setResolution, resolution);
+  return Impl{*this}.sendSetting(Command::setResolution, resolution);
 }
 
 bool Ps2Mouse::getResolution(byte& resolution) const {
   Status status;
-  if (getStatus(m_clockPin, m_dataPin, status)) {
+  if (Impl{*this}.getStatus(status)) {
     resolution = status.resolution;
     return true;
   }
@@ -258,12 +264,12 @@ bool Ps2Mouse::getResolution(byte& resolution) const {
 }
 
 bool Ps2Mouse::setSampleRate(byte sampleRate) const {
-  return sendSetting(m_clockPin, m_dataPin, Command::setSampleRate, sampleRate);
+  return Impl{*this}.sendSetting(Command::setSampleRate, sampleRate);
 }
 
 bool Ps2Mouse::getSampleRate(byte& sampleRate) const {
   Status status;
-  if (getStatus(m_clockPin, m_dataPin, status)) {
+  if (Impl{*this}.getStatus(status)) {
     sampleRate = status.sampleRate;
     return true;
   }
@@ -276,12 +282,14 @@ bool Ps2Mouse::hasData() const {
 
 bool Ps2Mouse::readData(Data& data) const {
 
-  if (m_mode == Mode::remote && !sendCommand(m_clockPin, m_dataPin, Command::readData)) {
+  Impl impl{*this};
+
+  if (m_mode == Mode::remote && !impl.sendCommand(Command::readData)) {
     return false;
   }
 
   Packet packet;
-  if (!recvData(m_clockPin, m_dataPin, packet)) {
+  if (!impl.recvData(packet)) {
     return false;
   }
 
