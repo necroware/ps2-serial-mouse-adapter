@@ -46,19 +46,20 @@ static void sendToSerial(const Ps2Mouse::Data& data) {
   sendSerialByte(mb);
 }
 
-static void listenRTS() {
-  auto handler = []() {
-    digitalWrite(LED, HIGH);
-    digitalWrite(RS232_TX, HIGH);
-    delayMicroseconds(10000);
-    sendSerialByte('M');
-    sendSerialByte('3');
-    delayMicroseconds(10000);
-    digitalWrite(LED, LOW);
-    void (*resetHack)() = 0;
-    resetHack();
-  };
-  attachInterrupt(digitalPinToInterrupt(RS232_RTS), handler, FALLING);
+static void initSerialPort() {
+  Serial.println("Starting serial port");
+  digitalWrite(LED, HIGH);
+  digitalWrite(RS232_TX, HIGH);
+  static const auto sendDelay = 5000;
+  delayMicroseconds(sendDelay);
+  sendSerialByte('M');
+  sendSerialByte('3');
+  delayMicroseconds(sendDelay);
+  digitalWrite(LED, LOW);
+
+  Serial.println("Listening on RTS");
+  void (*resetHack)() = 0;
+  attachInterrupt(digitalPinToInterrupt(RS232_RTS), resetHack, FALLING);
 }
 
 void setup() {
@@ -66,12 +67,13 @@ void setup() {
   // or the mouse will not initialize
   pinMode(PS2_DATA, INPUT_PULLUP);
   pinMode(RS232_TX, OUTPUT);
-  digitalWrite(RS232_TX, HIGH);
   pinMode(LED, OUTPUT);
-  Serial.begin(9600);
-  Serial.println("Starting...");
-  listenRTS();
+
+  Serial.begin(115200);
+  initSerialPort();
+  Serial.println("Reseting PS/2 mouse");
   mouse.reset();
+  Serial.println("Setup done!");
 }
 
 void loop() {
