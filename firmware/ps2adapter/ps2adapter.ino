@@ -50,11 +50,10 @@ static void initSerialPort() {
   Serial.println("Starting serial port");
   digitalWrite(LED, HIGH);
   digitalWrite(RS232_TX, HIGH);
-  static const auto sendDelay = 5000;
-  delayMicroseconds(sendDelay);
+  delayMicroseconds(10000);
   sendSerialByte('M');
   sendSerialByte('3');
-  delayMicroseconds(sendDelay);
+  delayMicroseconds(10000);
   digitalWrite(LED, LOW);
 
   Serial.println("Listening on RTS");

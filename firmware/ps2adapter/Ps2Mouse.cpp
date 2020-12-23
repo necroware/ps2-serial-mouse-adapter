@@ -81,7 +81,7 @@ struct Ps2Mouse::Impl {
     // Inhibit communication
     pinMode(m_ref.m_clockPin, OUTPUT);
     digitalWrite(m_ref.m_clockPin, LOW);
-    delayMicroseconds(100);
+    delayMicroseconds(10);
 
     // Set start bit and release the clock
     pinMode(m_ref.m_dataPin, OUTPUT);
