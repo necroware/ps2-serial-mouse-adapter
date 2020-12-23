@@ -27,7 +27,7 @@ voltage levels. Any voltage below -3V is a logical one and a voltage above +3V
 is a logical zero. So, it is not possible to connect Arduino output directly to
 the serial port. It simply will not work and needs another translator, which
 converts TTL voltage level to RS232 levels. In this adapter such conversion is
-made by a well known MAX232 IC. The software is written in C, it is a simple
+made by a well known MAX232 IC. The software is written in C/C++, it is a simple
 Arduino project, which can be used in Arduino Studio as usual.
 
 ## How to use?
@@ -74,7 +74,9 @@ again will initialize the mouse.
 If you test the adapter with a mouse, which is not in this list please consider
 to submit a report to improve the compatibility of the adapter.
 
-* Logitech Optical Mouse M-BT58
+* Logitech Optical Mouse M-BT58 (USB, PS/2, Optical)
+* NagerIT Fair Mouse (USB, PS/2, Optical)
+* Typthoon Optical Mouse (USB, PS/2, Optical)
 
 ## Links
 
