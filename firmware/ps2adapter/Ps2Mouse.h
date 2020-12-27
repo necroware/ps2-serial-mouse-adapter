@@ -22,9 +22,6 @@ public:
 
   bool reset() const;
 
-  bool setDataReporting(bool flag) const;
-  bool getDataReporting(bool& flag) const;
-
   bool setScaling(bool flag) const;
   bool getScaling(bool& flag) const;
 
@@ -34,8 +31,8 @@ public:
   bool setSampleRate(byte sampleRate) const;
   bool getSampleRate(byte& sampleRate) const;
 
-  bool hasData() const;
-
+  bool enableDataReporting() const;
+  bool disableDataReporting() const;
   bool readData(Data& data) const;
 
 private:

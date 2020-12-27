@@ -222,18 +222,12 @@ bool Ps2Mouse::reset() const {
   return false;
 }
 
-bool Ps2Mouse::setDataReporting(bool flag) const {
-  Command command = flag ? Command::enableDataReporting : Command::disableDataReporting;
-  return Impl{*this}.sendCommand(command);
+bool Ps2Mouse::enableDataReporting() const {
+  return Impl{*this}.sendCommand(Command::enableDataReporting);
 }
 
-bool Ps2Mouse::getDataReporting(bool& flag) const {
-  Status status;
-  if (Impl{*this}.getStatus(status)) {
-    flag = status.dataReporting;
-    return true;
-  }
-  return false;
+bool Ps2Mouse::disableDataReporting() const {
+  return Impl{*this}.sendCommand(Command::disableDataReporting);
 }
 
 bool Ps2Mouse::setScaling(bool flag) const {
@@ -276,15 +270,16 @@ bool Ps2Mouse::getSampleRate(byte& sampleRate) const {
   return false;
 }
 
-bool Ps2Mouse::hasData() const {
-  return (m_mode == Mode::remote) || (digitalRead(m_clockPin) == LOW);
-}
-
 bool Ps2Mouse::readData(Data& data) const {
 
   Impl impl{*this};
 
-  if (m_mode == Mode::remote && !impl.sendCommand(Command::readData)) {
+  if (m_mode == Mode::stream) {
+     if (digitalRead(m_clockPin) != LOW) {
+       return false;
+     }
+  }
+  else if (!impl.sendCommand(Command::readData)) {
     return false;
   }
 
