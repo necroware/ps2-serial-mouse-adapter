@@ -296,7 +296,7 @@ bool Ps2Mouse::readData(Data& data) const {
   data.leftButton = packet.leftButton;
   data.middleButton = packet.middleButton;
   data.rightButton = packet.rightButton;
-  data.xMovement = packet.xSign ? (0xFF00 | packet.xMovement) : packet.xMovement;
-  data.yMovement = packet.ySign ? (0xFF00 | packet.yMovement) : packet.yMovement;
+  data.xMovement = (packet.xSign ? -0x100 : 0) | packet.xMovement;
+  data.yMovement = (packet.ySign ? -0x100 : 0) | packet.yMovement;
   return true;
 }
