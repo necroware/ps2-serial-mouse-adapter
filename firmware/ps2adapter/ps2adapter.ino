@@ -6,7 +6,7 @@ static const int RS232_RTS = 3;
 static const int RS232_TX  = 4;
 static const int LED = 13;
 
-static Ps2Mouse mouse(PS2_CLOCK, PS2_DATA, Ps2Mouse::Mode::remote);
+static Ps2Mouse mouse(PS2_CLOCK, PS2_DATA);
 
 static void sendSerialBit(int data) {
   // Delay between the signals to match 1200 baud

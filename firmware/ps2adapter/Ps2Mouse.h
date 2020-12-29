@@ -5,11 +5,6 @@
 class Ps2Mouse {
 public:
 
-  enum Mode {
-    remote,
-    stream, 
-  };
-
   struct Data {
     bool leftButton;
     bool middleButton;
@@ -24,7 +19,7 @@ public:
     byte sampleRate;
   };
   
-  Ps2Mouse(int clockPin, int dataPin, Mode mode);
+  Ps2Mouse(int clockPin, int dataPin);
 
   bool reset() const;
 
@@ -34,8 +29,8 @@ public:
 
   bool getSettings(Settings& settings) const;
 
-  bool enableDataReporting() const;
-  bool disableDataReporting() const;
+  bool enableStreaming();
+  bool disableStreaming();
   bool readData(Data& data) const;
 
 private:
@@ -43,5 +38,5 @@ private:
 
   int m_clockPin;
   int m_dataPin;
-  Mode m_mode;
+  bool m_stream;
 };
