@@ -47,8 +47,23 @@ serial port of your PC. Turn on the PC and use a serial mouse driver of your
 choice. The adapter was tested with Microsoft, Logitech and Cute mouse drivers.
 Cute Mouse Driver is part of FreeDos project and is free and open source.
 
-**REMARK:** *Jumper JP1 is currently not in use.*
+## Jumper Settings
 
+There are two two jumpers, which can be used to set different modes. Currently
+you can choose between 2- and 3-button mouse modes and select so called remote
+and streaming mode. Remote mode sends mouse data all the time and has a better
+response times in current implementation. Streaming mode sends only data, when
+mouse position or button state changes. Unfortunately, this mode is currently
+not in a good shape. It has a higher delay and can result in some timing issues.
+However, it is interesting to have it for experimental purpose. Default values
+are when the jumpers are unset.
+
+JP1 | Setting |Description
+----|---------|------------------------------
+1-2 | unset   | 3-button Logitech mouse
+1-2 | set     | 2-button Microsoft mouse
+3-4 | unset   | remote mode
+3-4 | set     | streaming mode (experimental)
 
 ## Bill of materials
 
