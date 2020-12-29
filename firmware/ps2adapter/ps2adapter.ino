@@ -71,6 +71,16 @@ static void initPs2Port() {
   Serial.println("Reseting PS/2 mouse");
   mouse.reset();
   mouse.setSampleRate(20);
+
+  Ps2Mouse::Settings settings;
+  if (mouse.getSettings(settings)) {
+    Serial.print("scaling = ");
+    Serial.println(settings.scaling);
+    Serial.print("resolution = ");
+    Serial.println(settings.resolution);
+    Serial.print("samplingRate = ");
+    Serial.println(settings.sampleRate);
+  }
 }
 
 void setup() {
@@ -85,8 +95,13 @@ void setup() {
   threeButtons = digitalRead(JP12);
   Serial.begin(115200);
   initSerialPort();
+  initPs2Port();
   Serial.println("Setup done!");
   digitalWrite(LED, LOW);
+  if (digitalRead(JP34) == LOW) {
+    Serial.println("Enabling streaming mode");
+    mouse.enableStreaming();
+  }
 }
 
 void loop() {
