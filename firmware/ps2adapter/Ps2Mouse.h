@@ -17,19 +17,22 @@ public:
     int  xMovement;
     int  yMovement;
   };
+
+  struct Settings {
+    bool scaling;
+    byte resolution;
+    byte sampleRate;
+  };
   
   Ps2Mouse(int clockPin, int dataPin, Mode mode);
 
   bool reset() const;
 
   bool setScaling(bool flag) const;
-  bool getScaling(bool& flag) const;
-
   bool setResolution(byte resolution) const;
-  bool getResolution(byte& resolution) const;
-
   bool setSampleRate(byte sampleRate) const;
-  bool getSampleRate(byte& sampleRate) const;
+
+  bool getSettings(Settings& settings) const;
 
   bool enableDataReporting() const;
   bool disableDataReporting() const;

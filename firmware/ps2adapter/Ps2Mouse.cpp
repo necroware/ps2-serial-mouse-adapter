@@ -235,36 +235,20 @@ bool Ps2Mouse::setScaling(bool flag) const {
   return Impl{*this}.sendCommand(command);
 }
 
-bool Ps2Mouse::getScaling(bool& flag) const {
-  Status status;
-  if (Impl{*this}.getStatus(status)) {
-    flag = status.scaling;
-    return true;
-  }
-  return false;
-}
-
 bool Ps2Mouse::setResolution(byte resolution) const {
   return Impl{*this}.sendSetting(Command::setResolution, resolution);
-}
-
-bool Ps2Mouse::getResolution(byte& resolution) const {
-  Status status;
-  if (Impl{*this}.getStatus(status)) {
-    resolution = status.resolution;
-    return true;
-  }
-  return false;
 }
 
 bool Ps2Mouse::setSampleRate(byte sampleRate) const {
   return Impl{*this}.sendSetting(Command::setSampleRate, sampleRate);
 }
 
-bool Ps2Mouse::getSampleRate(byte& sampleRate) const {
+bool Ps2Mouse::getSettings(Settings& settings) const {
   Status status;
   if (Impl{*this}.getStatus(status)) {
-    sampleRate = status.sampleRate;
+    settings.scaling = status.scaling;
+    settings.resolution = status.resolution;
+    settings.sampleRate = status.sampleRate;
     return true;
   }
   return false;
