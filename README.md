@@ -6,7 +6,9 @@ they were mechanical devices with a heavy steel ball to track the movement. This
 mechanics got dirty quite fast and was not the best user experience anyway. A
 better solution are optical PS/2 mice, most of which unfortunately would not 
 work on a serial port. This adapter can be used to connect such a PS/2 mouse to
-a serial port of a retro PC.
+a serial port of a retro PC.The Adapter is made from through-hole parts only, so
+it is very easy to solder and due to Arduino based solution, it is also a very
+nice device for tinkering, experimenting and learning about mouse protocols.
 
 ![ps2-adapter](images/top.jpg)
 
