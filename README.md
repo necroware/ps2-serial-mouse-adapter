@@ -94,6 +94,7 @@ to submit a report to improve the compatibility of the adapter.
 * Logitech Optical Mouse M-BT58 (USB, PS/2, Optical)
 * NagerIT Fair Mouse (USB, PS/2, Optical)
 * Typthoon Optical Mouse (USB, PS/2, Optical)
+* Microsoft IntelliMouse Optical (USB, PS/2, Optical)
 
 ## Links
 
