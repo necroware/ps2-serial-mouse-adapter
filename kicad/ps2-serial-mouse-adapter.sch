@@ -117,17 +117,6 @@ NoConn ~ 7900 3700
 NoConn ~ 7900 4100
 NoConn ~ 7900 4300
 $Comp
-L Connector:DB9_Female_MountingHoles RS232
-U 1 1 5FBA566F
-P 8200 4000
-F 0 "RS232" H 8380 4046 50  0000 L CNN
-F 1 "DB9_Female" H 8380 3955 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm" H 8200 4000 50  0001 C CNN
-F 3 " ~" H 8200 4000 50  0001 C CNN
-	1    8200 4000
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR07
 U 1 1 5FB93712
 P 8200 4600
@@ -138,13 +127,10 @@ F 3 "" H 8200 4600 50  0001 C CNN
 	1    8200 4600
 	1    0    0    -1  
 $EndComp
-NoConn ~ 7900 4000
 Text GLabel 5500 4000 0    50   Input ~ 0
 TX
 Text GLabel 5500 4400 0    50   Input ~ 0
 RTS
-Text GLabel 5500 4200 0    50   Input ~ 0
-DTS
 Wire Wire Line
 	7500 4400 7500 3900
 Wire Wire Line
@@ -263,9 +249,9 @@ Wire Wire Line
 Text GLabel 3200 3750 0    50   Input ~ 0
 TX
 Text GLabel 3200 3850 0    50   Input ~ 0
-DTS
+RX
 Wire Wire Line
-	7100 4200 7900 4200
+	7100 4200 7650 4200
 Wire Wire Line
 	7500 4400 7100 4400
 Wire Wire Line
@@ -308,7 +294,6 @@ Wire Wire Line
 	7900 4400 7900 4600
 Wire Wire Line
 	7900 4600 8200 4600
-Connection ~ 8200 4600
 $Comp
 L Necroware:Arduino_Mini U1
 U 1 1 5FBA0BED
@@ -334,4 +319,23 @@ Wire Wire Line
 	3250 1500 4650 1500
 Wire Wire Line
 	4650 1500 4650 2400
+Wire Wire Line
+	7650 4200 7650 4000
+Wire Wire Line
+	7650 4000 7900 4000
+Connection ~ 8200 4600
+$Comp
+L Connector:DB9_Female_MountingHoles RS232
+U 1 1 5FBA566F
+P 8200 4000
+F 0 "RS232" H 8380 4046 50  0000 L CNN
+F 1 "DB9_Female" H 8380 3955 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm" H 8200 4000 50  0001 C CNN
+F 3 " ~" H 8200 4000 50  0001 C CNN
+	1    8200 4000
+	1    0    0    -1  
+$EndComp
+NoConn ~ 7900 4200
+Text GLabel 5500 4200 0    50   Input ~ 0
+RX
 $EndSCHEMATC
