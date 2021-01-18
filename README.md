@@ -95,6 +95,7 @@ to submit a report to improve the compatibility of the adapter.
 * NagerIT Fair Mouse (USB, PS/2, Optical)
 * Typthoon Optical Mouse (USB, PS/2, Optical)
 * Microsoft IntelliMouse Optical (USB, PS/2, Optical)
+* IBM 33G5430 (PS/2, Mechanical)
 
 ## Links
 
@@ -102,3 +103,7 @@ to submit a report to improve the compatibility of the adapter.
 * [More PS/2 Mouse Protocol description](http://www-ug.eecg.utoronto.ca/desl/nios_devices_SoC/datasheets/PS2%20Protocol.htm)
 * [Serial Mouse Protocol description](https://linux.die.net/man/4/mouse)
 * [Cute Mouse Driver](http://cutemouse.sourceforge.net)
+
+## Special Thanks
+* creopard from dosreloaded.de for testing with MS IntelliMouse Optical
+* moravec from dosreloaded.de for donating the original IBM 33G5430 mechanical mouse
