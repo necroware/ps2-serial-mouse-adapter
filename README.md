@@ -34,11 +34,11 @@ Arduino project, which can be used in Arduino Studio as usual.
 
 ## How to use?
 
-This project contains everything you need to build your own adapter. You can use
-the gerber files to order a PCB. The list of materials is below. After soldering
-the adapter, connect the Arduino Mini using FTDI to your PC and flash the 
-firmware using Arduino Studio. If you don't know how to do that, please refer to
-the documentation of Arduino. 
+This project contains everything you need to build your own adapter. You can
+use the gerber files to order a PCB. The list of materials is below. After
+soldering the adapter, connect the Arduino Mini using an USB to TTL adapter to
+your PC and flash the firmware using the Arduino IDE. If you don't know how to
+do that, please refer to the documentation of Arduino. 
 
 **ATTENTION!** *The USB port (PWR1) on the adapter is only for powering the
 circuits, it is not a data port!*
@@ -51,14 +51,14 @@ Cute Mouse Driver is part of FreeDos project and is free and open source.
 
 ## Jumper Settings
 
-There are two two jumpers, which can be used to set different modes. Currently
-you can choose between 2- and 3-button mouse modes and select so called remote
-and streaming mode. Remote mode sends mouse data all the time and has a better
+There are two jumpers, which can be used to set different modes. Currently you
+can choose between 2- and 3-button mouse modes and select so called remote and
+streaming mode. Remote mode sends mouse data all the time and has a better
 response times in current implementation. Streaming mode sends only data, when
 mouse position or button state changes. Unfortunately, this mode is currently
-not in a good shape. It has a higher delay and can result in some timing issues.
-However, it is interesting to have it for experimental purpose. Default values
-are when the jumpers are unset.
+not in a good shape. It has a higher delay and can result in some timing
+issues. However, it is interesting to have it for experimental purpose. Default
+values are when the jumpers are unset.
 
 JP1 | Setting |Description
 ----|---------|------------------------------
