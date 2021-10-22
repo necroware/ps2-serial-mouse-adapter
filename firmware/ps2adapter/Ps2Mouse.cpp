@@ -192,29 +192,30 @@ Ps2Mouse::Ps2Mouse(int clockPin, int dataPin)
 
 bool Ps2Mouse::reset() const {
   Impl impl{*this};
-  if (impl.sendCommand(Command::reset)) {
-    byte reply;
-    impl.recvByte(reply);
-    if (reply == static_cast<byte>(Response::selfTestPassed)) {
-      impl.recvByte(reply);
-      if (reply == static_cast<byte>(Response::isMouse)) {
-        return impl.sendCommand(Command::setRemoteMode);
-      }
-    }
+  if (!impl.sendCommand(Command::reset)) {
+      return false;
   }
-  return false;
+
+  byte reply;
+  impl.recvByte(reply);
+  if (reply != static_cast<byte>(Response::selfTestPassed)) {
+      return false;
+  }
+
+  impl.recvByte(reply);
+  if (reply != static_cast<byte>(Response::isMouse)) {
+      return false;
+  }
+
+  return disableStreaming() && impl.sendCommand(Command::enableDataReporting);
 }
 
 bool Ps2Mouse::enableStreaming() {
-  Impl impl{*this};
-  m_stream = impl.sendCommand(Command::setStreamMode) && impl.sendCommand(Command::enableDataReporting);
-  return m_stream;
+  return Impl{*this}.sendCommand(Command::setStreamMode);
 }
 
 bool Ps2Mouse::disableStreaming() {
-  Impl impl{*this};
-  m_stream = impl.sendCommand(Command::disableDataReporting) && impl.sendCommand(Command::setRemoteMode);
-  return m_stream;
+  return Impl{*this}.sendCommand(Command::setRemoteMode);
 }
 
 bool Ps2Mouse::setScaling(bool flag) const {
