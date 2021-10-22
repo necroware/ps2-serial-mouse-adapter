@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "PS/2 to Serial Mouse Adapter"
-Date "2020-12-08"
-Rev "0.6"
+Date "2021-10-22"
+Rev "0.7"
 Comp "Necroware"
 Comment1 "by Scorp"
 Comment2 ""
@@ -232,18 +232,6 @@ Wire Wire Line
 NoConn ~ 3200 4050
 NoConn ~ 3200 4150
 NoConn ~ 3200 4250
-$Comp
-L Necroware:Mini-DIN-6_shielded MOUSE1
-U 1 1 5FBA6BF7
-P 3550 2400
-F 0 "MOUSE1" H 3550 2767 50  0000 C CNN
-F 1 "Mini-DIN-6" H 3550 2676 50  0000 C CNN
-F 2 "Necroware:Mini_DIN_6_LCSC_C77848" H 3550 2400 50  0001 C CNN
-F 3 "http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf" H 3550 2400 50  0001 C CNN
-F 4 "C77848" H 3550 2400 50  0001 C CNN "LCSC Part"
-	1    3550 2400
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	2950 2100 3550 2100
 Text GLabel 3200 3750 0    50   Input ~ 0
@@ -306,7 +294,7 @@ F 3 "" H 3200 2950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3850 2400 4650 2400
+	3850 2400 3950 2400
 NoConn ~ 4050 3150
 Wire Wire Line
 	4050 3450 4650 3450
@@ -338,4 +326,38 @@ $EndComp
 NoConn ~ 7900 4200
 Text GLabel 5500 4200 0    50   Input ~ 0
 RX
+$Comp
+L Device:R R1
+U 1 1 6172B4AF
+P 3550 2750
+F 0 "R1" V 3450 2750 50  0000 C CNN
+F 1 "10K" V 3550 2750 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 3480 2750 50  0001 C CNN
+F 3 "~" H 3550 2750 50  0001 C CNN
+	1    3550 2750
+	0    1    1    0   
+$EndComp
+$Comp
+L Necroware:Mini-DIN-6_shielded MOUSE1
+U 1 1 5FBA6BF7
+P 3550 2400
+F 0 "MOUSE1" H 3350 2150 50  0000 C CNN
+F 1 "Mini-DIN-6" H 3350 2050 50  0000 C CNN
+F 2 "Necroware:Mini_DIN_6_LCSC_C77848" H 3550 2400 50  0001 C CNN
+F 3 "http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf" H 3550 2400 50  0001 C CNN
+F 4 "C77848" H 3550 2400 50  0001 C CNN "LCSC Part"
+	1    3550 2400
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3250 2500 3250 2750
+Wire Wire Line
+	3250 2750 3400 2750
+Wire Wire Line
+	3700 2750 3950 2750
+Wire Wire Line
+	3950 2750 3950 2400
+Connection ~ 3950 2400
+Wire Wire Line
+	3950 2400 4650 2400
 $EndSCHEMATC
