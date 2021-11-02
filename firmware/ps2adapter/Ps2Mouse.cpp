@@ -150,7 +150,7 @@ struct Ps2Mouse::Impl {
   template <typename T>
   bool recvData(T& data) const {
     auto ptr = reinterpret_cast<byte*>(&data);
-    for (auto i = 0; i < sizeof(data); i++) {
+    for (auto i = 0u; i < sizeof(data); i++) {
       if (!recvByte(ptr[i])) {
         return false;
       }
@@ -197,24 +197,22 @@ bool Ps2Mouse::reset() const {
   }
 
   byte reply;
-  impl.recvByte(reply);
-  if (reply != static_cast<byte>(Response::selfTestPassed)) {
+  if (!impl.recvByte(reply) || reply != byte(Response::selfTestPassed)) {
       return false;
   }
 
-  impl.recvByte(reply);
-  if (reply != static_cast<byte>(Response::isMouse)) {
+  if (!impl.recvByte(reply) || reply != byte(Response::isMouse)) {
       return false;
   }
 
   return disableStreaming() && impl.sendCommand(Command::enableDataReporting);
 }
 
-bool Ps2Mouse::enableStreaming() {
+bool Ps2Mouse::enableStreaming() const {
   return Impl{*this}.sendCommand(Command::setStreamMode);
 }
 
-bool Ps2Mouse::disableStreaming() {
+bool Ps2Mouse::disableStreaming() const {
   return Impl{*this}.sendCommand(Command::setRemoteMode);
 }
 

@@ -29,8 +29,8 @@ public:
 
   bool getSettings(Settings& settings) const;
 
-  bool enableStreaming();
-  bool disableStreaming();
+  bool enableStreaming() const;
+  bool disableStreaming() const;
   bool readData(Data& data) const;
 
 private:
