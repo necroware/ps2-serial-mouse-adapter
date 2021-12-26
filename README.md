@@ -95,6 +95,9 @@ to submit a report to improve the compatibility of the adapter.
 * NagerIT Fair Mouse (USB, PS/2, Optical)
 * Typthoon Optical Mouse (USB, PS/2, Optical)
 * Microsoft IntelliMouse Optical (USB, PS/2, Optical)
+* Microsoft IntelliMouse "Classic" (PS/2, Balled)
+* Microsoft Basic Optical Mouse (USB, PS/2, Optical, produced 2021)
+* Microsoft Comfort Optical Mouse 300 (USB, PS/2, Optical)
 * IBM 33G5430 (PS/2, Mechanical)
 
 ## Links
