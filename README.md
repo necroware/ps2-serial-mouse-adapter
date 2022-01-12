@@ -77,6 +77,7 @@ RS232      |1  |C141882| DB9 female RS232 port
 MOUSE1     |1  |C77848 | PS/2 female port
 PWR1       |1  |C46398 | Mini-USB port for power supply
 C1-5       |5  |C106448| 1µF electrolytic capacitor
+R1         |1  |C57436 | 10kOhm resistor (pull-up)
 JP1        |1  |       | 2x2 jumper header (optional)
 
 ## Known issues
