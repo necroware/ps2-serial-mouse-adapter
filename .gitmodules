@@ -1,3 +1,0 @@
-[submodule "kicad/lib"]
-	path = kicad/lib
-	url = git@github.com:necroware/kicad-library.git

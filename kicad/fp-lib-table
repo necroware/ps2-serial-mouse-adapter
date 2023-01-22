@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name Necroware)(type KiCad)(uri ${KIPRJMOD}/lib/Necroware.pretty)(options "")(descr ""))
-)
